@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>NFT Generator</title>
+        <script src="./scripts/three.js"></script>
+        <script src="./scripts/geometry.js"></script>
+    </head>
+    <body>
+
+        <script type="module">
+            import init, {load_sequence} from "./wasm/geogen.js";
+            init().then(() => {
+                let scene = new Scene();
+
+                LoadSequence('./data/covid.txt').then(ref => {
+                    LoadSequence('./data/covid_variant.txt').then(data => {
+
+                        // load_sequence arguments:
+                        // data - actual dna sequence to display
+                        // ref - reference dna sequence to compare data with.
+                        // Differences between the two sequences are shown as red spots on the strips
+                        //
+                        // load_sequence output: a list of vertices positions, then normals, then colors
+                        // see AddGeometry for how to input these data in the Three.js scene
+                        let vertices = load_sequence(data, ref);
+                        let mesh = scene.AddGeometry(vertices);
+                        scene.Animate(mesh);
+                    });
+                });
+            });
+    
+        </script>
+    </body>
+</html>

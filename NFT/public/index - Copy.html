@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>NFT Generator</title>
+        <script src="./scripts/three.js"></script>
+        <script src="./scripts/geometry.js"></script>
+    </head>
+    <body>
+        <script>
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color().setHSL( 0.6, 0, 1 );
+
+            const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+            const renderer = new THREE.WebGLRenderer();
+            renderer.physicallyCorrectLights = true;
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            renderer.shadowMap.enabled = true;
+            renderer.toneMapping = THREE.ReinhardToneMapping;
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+            renderer.domElement.style.top = "0";
+            renderer.domElement.style.left = "0";
+            renderer.domElement.style.position = "absolute";
+
+
+            const hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+            hemiLight.color.setHSL( 0.6, 1, 0.6 );
+            hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+            hemiLight.position.set( 0, 10, 0 );
+            hemiLight.visible = true;
+            scene.add( hemiLight );
+
+            const ptlight0 = new THREE.PointLight( 0xff0000, 100, 0 );
+            ptlight0.position.set( 5, 5, 5 );
+            scene.add( ptlight0 );
+
+            const ptlight1 = new THREE.PointLight( 0xffffff, 100, 0 );
+            ptlight1.position.set( -5, 5, -5 );
+            scene.add( ptlight1 );
+
+
+//            const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+            const geometry = new THREE.BufferGeometry();
+            // create a simple square shape. We duplicate the top left and bottom right
+            // vertices because each vertex needs to appear once per triangle.
+            const vertices = new Float32Array( [
+                -1.0, -1.0,  1.0,
+                1.0, -1.0,  1.0,
+                1.0,  1.0,  1.0,
+
+                1.0,  1.0,  1.0,
+                -1.0,  1.0,  1.0,
+                -1.0, -1.0,  1.0
+            ] );
+            // itemSize = 3 because there are 3 values (components) per vertex
+            geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+
+
+
+            const material = new THREE.MeshStandardMaterial( {
+					color: 0xffffff,
+					roughness: 0.5,
+					metalness: 0.1
+            } );
+
+            const cube = new THREE.Mesh( geometry, material );
+            scene.add( cube );
+
+
+
+
+            
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame( animate );
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                renderer.render( scene, camera );
+            }
+            animate();
+
+
+        </script>
+    </body>
+</html>

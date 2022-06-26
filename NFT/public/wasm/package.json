@@ -1,0 +1,21 @@
+{
+  "name": "dna_visualizer",
+  "collaborators": [
+    "Ericka SIMON"
+  ],
+  "description": "DNA 3D visualizer",
+  "version": "0.1.0",
+  "license": "MIT/Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gablg1/454-hackathon/3d-dna-nft"
+  },
+  "files": [
+    "dna_visualizer_bg.wasm",
+    "dna_visualizer.js",
+    "dna_visualizer.d.ts"
+  ],
+  "module": "dna_visualizer.js",
+  "types": "dna_visualizer.d.ts",
+  "sideEffects": false
+}
