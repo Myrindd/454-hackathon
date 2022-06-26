@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Ericka SIMON"]
 description = "DNA 3D visualizer"
 license = "MIT/Apache-2.0"
-repository = "https://github.com/gablg1/454-hackathon/3d-dna-nft"
+repository = "https://github.com/Myrindd/454-hackathon/NFT"
 edition = "2018"
 
 [package.metadata.wasm-pack.profile.profiling]
